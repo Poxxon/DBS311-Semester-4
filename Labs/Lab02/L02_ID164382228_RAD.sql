@@ -1,3 +1,9 @@
+-- ***********************
+-- Name: Pouya Rad
+-- ID: 164382228
+-- Date: Jan 15 2025
+-- Purpose: Lab 1 DBS311
+-- ***********************
 -- Q1: For each job title display the number of employees. 
 SELECT JOB_TITLE as "Job Title", COUNT(*) AS "Number of employees per title"
 FROM EMPLOYEES
@@ -22,3 +28,12 @@ FROM INVENTORIES i
 LEFT JOIN WAREHOUSES w ON i.WAREHOUSE_ID = w.WAREHOUSE_ID
 GROUP BY i.WAREHOUSE_ID, w.WAREHOUSE_NAME
 ORDER BY i.WAREHOUSE_ID;
+
+-- Q5: For each customer display the number of orders issued by the customer. If the customer does not have any orders, the result show display 0.
+SELECT c.CUSTOMER_ID, c.NAME, COUNT(o.ORDER_ID)
+FROM CUSTOMERS c
+LEFT JOIN ORDERS o ON c.CUSTOMER_ID = c.CUSTOMER_ID
+GROUP BY c.CUSTOMER_ID, c.NAME;
+
+-- Q6: Write a SQL query to show the total and the average sale amount for each category.
+
