@@ -17,3 +17,8 @@ GROUP BY ORDER_ID
 HAVING SUM(QUANTITY * UNIT_PRICE) > 1000000;
 
 -- Q4: Display the warehouse id, warehouse name, and the total number of products for each warehouse. 
+SELECT i.warehouse_id, w.warehouse_name, SUM(QUANTITY) AS "Total Products"
+FROM INVENTORIES i
+LEFT JOIN WAREHOUSES w ON i.WAREHOUSE_ID = w.WAREHOUSE_ID
+GROUP BY i.WAREHOUSE_ID, w.WAREHOUSE_NAME
+ORDER BY i.WAREHOUSE_ID;
