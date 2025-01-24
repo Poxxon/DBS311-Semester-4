@@ -1,4 +1,9 @@
-
+-- ***********************
+-- Name: Pouya Rad
+-- ID: 164382228
+-- Date: Jan 24 2025
+-- Purpose: Lab 2 DBS311
+-- ***********************
 -- Q1: For each job title display the number of employees.
 -- Display the job titles and the number of employees in each.  
 SELECT JOB_TITLE as "Job Title", COUNT(*) AS "Number of employees per title"
@@ -31,11 +36,11 @@ FROM CUSTOMERS c
 LEFT JOIN ORDERS o ON c.CUSTOMER_ID = c.CUSTOMER_ID
 GROUP BY c.CUSTOMER_ID, c.NAME;
 
--- ***********************
--- Name: Pouya Rad
--- ID: 164382228
--- Date: Jan 15 2025
--- Purpose: Lab 1 DBS311
--- ***********************
 -- Q6: Write a SQL query to show the total and the average sale amount for each category.
-
+SELECT 
+    p.CATEGORY_ID AS CATEGORY_ID,
+    SUM(oi.QUANTITY * oi.UNIT_PRICE) AS TOTAL_AMOUNT,
+    ROUND(AVG(oi.QUANTITY * oi.UNIT_PRICE), 2) AS AVERAGE_AMOUNT
+FROM ORDER_ITEMS oi
+JOIN PRODUCTS p ON oi.PRODUCT_ID= p.PRODUCT_ID
+GROUP BY p.CATEGORY_ID;
