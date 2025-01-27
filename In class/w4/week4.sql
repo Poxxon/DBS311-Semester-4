@@ -78,3 +78,37 @@ SELECT DEPARTMENT_ID, MIN(SALARY)
 FROM EMPLOYEE_INFO
 GROUP BY DEPARTMENT_ID
 HAVING MIN(SALARY) > (SELECT MIN(SALARY) FROM EMPLOYEE_INFO WHERE DEPARTMENT_ID = 30);
+
+-- Find the lowest avg salary for a job id
+-- Display job id and that avg salary
+SELECT MIN(AVG(SALARY))
+FROM EMPLOYEE_INFO
+GROUP BY JOB_ID;
+
+-- Using subquery for above
+SELECT JOB_ID, AVG(SALARY)
+FROM EMPLOYEE_INFO
+GROUP BY JOB_ID
+HAVING AVG(SALARY) IN (SELECT MIN(AVG(SALARY)) FROM EMPLOYEE_INFO GROUP BY JOB_ID);
+
+-- Multi row group by example
+SELECT DEPARTMENT_ID, EMPLOYEE_ID, LAST_NAME, SALARY
+FROM EMPLOYEE_INFO
+WHERE SALARY IN (SELECT MIN(SALARY) FROM EMPLOYEE_INFO GROUP BY DEPARTMENT_ID);
+
+-- ANY operator:
+/*
+< ANY -- less than any will mean less than the maximum return
+> ANY -- greater than any means more than the minimum value returned
+= ANY -- equal to any is the equivalent of the IN operator
+*/
+
+-- Display salary of employee who belong to department id 20
+SELECT SALARY 
+FROM EMPLOYEE_INFO 
+WHERE DEPARTMENT_ID = 20;
+
+-- Using subquery for above
+SELECT EMPLOYEE_ID, LAST_NAME, JOB_ID, SALARY 
+FROM EMPLOYEE_INFO
+WHERE SALARY < ANY (SELECT SALARY FROM EMPLOYEE_INFO WHERE DEPARTMENT_ID = 20);
