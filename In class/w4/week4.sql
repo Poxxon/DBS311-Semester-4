@@ -1,3 +1,6 @@
+-- Pouya Rad
+-- In class activity w4
+
 -- Week 4 sql file : Subqueries
 SELECT * FROM EMPLOYEE_INFO;
 
@@ -43,8 +46,9 @@ FROM EMPLOYEE_INFO
 WHERE JOB_ID = (SELECT JOB_ID FROM EMPLOYEE_INFO WHERE EMPLOYEE_ID = 2)
 AND SALARY > (SELECT SALARY FROM EMPLOYEE_INFO WHERE EMPLOYEE_ID = 3);
 
--- Display first name, job id and department id of employees whose department id matches
--- department id of employee 5
+-- Display first name, job id and department id of employees whose department id matches...
+-- the department id of employee 5
+-- Identify greater salaries than the employee 20
 SELECT DEPARTMENT_ID 
 FROM EMPLOYEE_INFO 
 WHERE EMPLOYEE_ID = 5;
@@ -52,4 +56,25 @@ WHERE EMPLOYEE_ID = 5;
 -- Using subquery for above
 SELECT FIRST_NAME, JOB_ID, DEPARTMENT_ID
 FROM EMPLOYEE_INFO
-WHERE DEPARTMENT_ID = (SELECT DEPARTMENT_ID FROM EMPLOYEE_INFO WHERE EMPLOYEE_ID = 5);
+WHERE DEPARTMENT_ID = (SELECT DEPARTMENT_ID FROM EMPLOYEE_INFO WHERE EMPLOYEE_ID = 5)
+AND SALARY >= (SELECT SALARY FROM EMPLOYEE_INFO WHERE EMPLOYEE_ID = 2);
+
+-- Display last name, job id and salary of employees that match the minimum salary of employees
+SELECT MIN(SALARY)
+FROM EMPLOYEE_INFO;
+
+-- Using subquery for above
+SELECT LAST_NAME, JOB_ID, SALARY
+FROM EMPLOYEE_INFO
+WHERE SALARY = (SELECT MIN(SALARY) FROM EMPLOYEE_INFO);
+
+-- Minimum salary in each department where it is greater than the minimum salary in dept 30
+SELECT MIN(SALARY)
+FROM EMPLOYEE_INFO
+WHERE DEPARTMENT_ID = 30;
+
+-- Using subquery for above
+SELECT DEPARTMENT_ID, MIN(SALARY)
+FROM EMPLOYEE_INFO
+GROUP BY DEPARTMENT_ID
+HAVING MIN(SALARY) > (SELECT MIN(SALARY) FROM EMPLOYEE_INFO WHERE DEPARTMENT_ID = 30);
