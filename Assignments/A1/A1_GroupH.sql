@@ -128,6 +128,25 @@ WHERE list_price = (SELECT MIN(list_price) FROM products);
 
 -- 10.	Write a SQL query to display the number of customers with total order amount over the 
 -- average amount of all orders
-
-
-
+WITH customer_order_totals AS (
+    SELECT 
+        c.customer_id,
+        COALESCE(SUM(oi.quantity * oi.unit_price), 0) AS total_order_amount
+    FROM customers c
+    LEFT JOIN orders o 
+        ON c.customer_id = o.customer_id
+    LEFT JOIN order_items oi 
+        ON o.order_id = oi.order_id
+    GROUP BY c.customer_id
+),
+average_order_amount AS (
+    SELECT AVG(total_order_amount) AS avg_order_amount
+    FROM customer_order_totals
+)
+-- Customers with total over average
+SELECT 'Number of customers with total purchase amount over average: ' || COUNT(*) AS report
+FROM customer_order_totals cot, average_order_amount aoa
+WHERE cot.total_order_amount > aoa.avg_order_amount
+UNION ALL
+SELECT 'Total number of customers: ' || COUNT(*) AS report
+FROM customer_order_totals;
