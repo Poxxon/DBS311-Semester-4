@@ -1,3 +1,11 @@
+-- *******************************
+-- Student1 Name: Pouya Rad
+-- Student2 Name: Bahar Parsaeian
+-- Student3 Name: Debaditto Paul
+-- Date: 09/02/2025
+-- Purpose: Assignment 1 - DBS311
+-- *******************************
+
 -- 1. Display the employee number, full employee name, job title, and hire date
 -- of all employees hired in September with the most recently hired employees displayed first. 
 SELECT EMPLOYEE_ID,
@@ -128,22 +136,12 @@ WHERE list_price = (SELECT MIN(list_price) FROM products);
 
 -- 10.	Write a SQL query to display the number of customers with total order amount over the 
 -- average amount of all orders
-WITH customer_order_totals AS (
-    SELECT 
-        c.customer_id,
-        COALESCE(SUM(oi.quantity * oi.unit_price), 0) AS total_order_amount
-    FROM customers c
-    LEFT JOIN orders o 
-        ON c.customer_id = o.customer_id
-    LEFT JOIN order_items oi 
-        ON o.order_id = oi.order_id
-    GROUP BY c.customer_id
-),
-average_order_amount AS (
-    SELECT AVG(total_order_amount) AS avg_order_amount
-    FROM customer_order_totals
-)
--- Customers with total over average
+WITH customer_order_totals AS (SELECT c.customer_id, COALESCE(SUM(oi.quantity * oi.unit_price), 0) AS total_order_amount
+FROM customers c 
+    LEFT JOIN orders o ON c.customer_id = o.customer_id
+    LEFT JOIN order_items oi ON o.order_id = oi.order_id
+GROUP BY c.customer_id),
+average_order_amount AS (SELECT AVG(total_order_amount) AS avg_order_amount FROM customer_order_totals)
 SELECT 'Number of customers with total purchase amount over average: ' || COUNT(*) AS report
 FROM customer_order_totals cot, average_order_amount aoa
 WHERE cot.total_order_amount > aoa.avg_order_amount
