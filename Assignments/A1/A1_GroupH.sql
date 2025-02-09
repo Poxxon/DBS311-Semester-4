@@ -61,16 +61,20 @@ ORDER BY total_amount DESC;
 -- 5. Display customer Id, name, total number of orders, the total number of 
 -- items ordered, and the total order amount for customers who have more than 30 orders. 
 -- Sort the result based on the total number of orders.
-SELECT c.customer_id, c.name,
-       COUNT(DISTINCT o.order_id) AS total_orders,
-       SUM(oi.quantity) AS total_items,
-       SUM(oi.quantity * oi.unit_price) AS total_amount
-FROM customers c
-JOIN orders o ON c.customer_id = o.customer_id
-JOIN order_items oi ON o.order_id = oi.order_id
+SELECT 
+    c.customer_id AS "Customer ID",
+    c.name AS "Name",
+    COUNT(o.order_id) AS "Total Number of Orders",
+    SUM(oi.quantity) AS "Total Items",
+    SUM(oi.quantity * oi.unit_price) AS "Total Amount"
+FROM  customers c
+JOIN orders o 
+ON c.customer_id = o.customer_id
+JOIN  order_items oi 
+ON o.order_id = oi.order_id
 GROUP BY c.customer_id, c.name
-HAVING COUNT(DISTINCT o.order_id) > 30
-ORDER BY total_orders;
+HAVING COUNT(o.order_id) > 30
+ORDER BY "Total Number of Orders" ASC;
  
 -- 6. Display Warehouse Id, warehouse name, product category Id, product category name, 
 -- and the lowest product standard cost for this combination.
