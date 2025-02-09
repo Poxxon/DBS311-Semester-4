@@ -106,11 +106,28 @@ ORDER BY TO_NUMBER(TO_CHAR(order_date, 'MM'));
 -- the Americas regions. Then you need to return all products that their list price is higher 
 -- than any highest standard cost of those warehouses.)
 -- Sort the result according to list price from highest value to the lowest.
-
+SELECT p.product_id AS "Product ID", p.product_name AS "Product Name", TO_CHAR(p.list_price, '$999,999.99') AS "Price"
+FROM products p
+WHERE p.list_price > ANY (SELECT MAX(pr.standard_cost) AS max_standard_cost FROM warehouses w 
+        JOIN locations l ON w.location_id = l.location_id 
+        JOIN countries c ON l.country_id = c.country_id
+        JOIN  products pr ON pr.product_id IN (SELECT   i.product_id FROM   inventories i WHERE   i.warehouse_id = w.warehouse_id)
+WHERE c.region_id NOT IN (SELECT   region_id FROM  regions WHERE  region_name = 'Americas')
+GROUP BY  w.warehouse_id)
+ORDER BY p.list_price DESC;
 
 -- 9. Write a SQL statement to display the most expensive and the cheapest product (list price). 
 -- Display product ID, product name, and the list price.
-
+SELECT product_id AS "Product ID", product_name AS "Product Name", TO_CHAR(list_price, '$999,999.99') AS "Price"
+FROM products
+WHERE list_price = (SELECT MAX(list_price) FROM products)
+UNION
+SELECT product_id AS "Product ID", product_name AS "Product Name", TO_CHAR(list_price, '$999,999.99') AS "Price"
+FROM products
+WHERE list_price = (SELECT MIN(list_price) FROM products);
 
 -- 10.	Write a SQL query to display the number of customers with total order amount over the 
 -- average amount of all orders
+
+
+
