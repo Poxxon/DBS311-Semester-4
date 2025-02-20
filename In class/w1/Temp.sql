@@ -29,8 +29,8 @@ ORDER BY warehouse_name, location_id DESC;
 -- Like / Not like
 SELECT employee_id, first_name, last_name
 FROM ass_employees
-WHERE last_name LIKE '%o_';
-
+WHERE last_name LIKE '%o_'; -- '%' is for nothing, anything or more than one characters
+                            -- '_' is for a single character 
 -- Escape character
 SELECT * 
 FROM class
@@ -95,11 +95,11 @@ INSERT ALL
     INTO student (name, phone_number) VALUES ('Jane', 52566)
 SELECT * FROM dual;
 
--- Inner Join
+-- Inner Join -- Returns all rows from multiple tables
 SELECT * FROM student 
 INNER JOIN candidate ON candidate.name = student.name;
 
--- Right join
+-- Right join -- 
 SELECT * FROM student
 RIGHT JOIN candidate ON candidate.name = student.name;
 

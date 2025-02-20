@@ -79,7 +79,7 @@ SELECT length('database') FROM DUAL; -- length() counts the number of chars
 
 SELECT SUBSTR('DatabaseSystems', 1, 4) FROM DUAL; -- Cuts the text to preferred length
 
-SELECT INSTR('DatabaseSystems', 'b') FROM DUAL;
+SELECT INSTR('DatabaseSystems', 'd') FROM DUAL;
 
 SELECT LPAD('Tommy', 10, '*') FROM DUAL; -- adds padding to the left
 
@@ -99,5 +99,5 @@ SELECT SYSDATE + 30 FROM DUAL; -- System date
 
 SELECT TO_CHAR(sysdate + 30,'Month DDth, YYYY') FROM DUAL; -- System date
 
-SELECT last_name, round((SYSDATE - hire_date) / 7, 0) "Weeks Employed"
+SELECT last_name, round((SYSDATE - hire_date) / 7,0) "Weeks Employed"
 FROM EMPLOYEES;
