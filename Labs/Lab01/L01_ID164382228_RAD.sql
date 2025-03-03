@@ -72,8 +72,5 @@ ORDER BY REVIEW_DAY;
 --Display info for warehouses, if the state is NULL we display "unknown".
 --Solution--
 SELECT w.warehouse_id, w.warehouse_name, l.city,
-CASE
-    WHEN l.state IS NULL THEN 'Unknown' --Conditional statement to see if state is null or not
-    ELSE l.state
-END AS STATE
+NVL(l.state, 'Unknown') AS STATE
 FROM WAREHOUSES w LEFT JOIN locations l ON w.location_id = l.location_id;
