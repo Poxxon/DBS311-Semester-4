@@ -59,3 +59,15 @@ BEGIN
     END LOOP;
     DBMS_OUTPUT.PUT_LINE('Loop ended.');
 END;
+
+-- Different approach
+DECLARE 
+COUNTER NUMBER:=1;
+
+BEGIN
+    WHILE COUNTER<=5 LOOP
+        DBMS_OUTPUT.PUT_LINE('Counter value is ' || counter);
+        COUNTER:=COUNTER+1;
+    END LOOP;
+    DBMS_OUTPUT.PUT_LINE('Loop ended.');
+END;
