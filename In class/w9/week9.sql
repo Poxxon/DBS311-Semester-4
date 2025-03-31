@@ -1,3 +1,5 @@
+-- Week 9 in-class activity/lecture
+
 SET SERVEROUTPUT ON;
 
 -- PL/SQL
@@ -66,8 +68,17 @@ COUNTER NUMBER:=1;
 
 BEGIN
     WHILE COUNTER<=5 LOOP
-        DBMS_OUTPUT.PUT_LINE('Counter value is ' || counter);
+        DBMS_OUTPUT.PUT_LINE('Counter value is ' || COUNTER);
         COUNTER:=COUNTER+1;
     END LOOP;
     DBMS_OUTPUT.PUT_LINE('Loop ended.');
+END;
+
+-- For loop
+DECLARE 
+BEGIN
+    FOR COUNTER IN REVERSE 1..10 LOOP
+    DBMS_OUTPUT.PUT_LINE('Counter value is ' || COUNTER);
+    END LOOP;
+    DBMS_OUTPUT.PUT_LINE('Loop Ended');
 END;
