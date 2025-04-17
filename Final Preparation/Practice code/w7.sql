@@ -114,3 +114,12 @@ BEGIN
       END LOOP;
    END;
 END;
+
+-- FUNCTIONS
+CREATE OR REPLACE FUNCTION find_max_price RETURN NUMBER IS
+    max_price NUMBER := 0;
+BEGIN
+    SELECT MAX(list_price) INTO max_price FROM products;
+    RETURN max_price;
+END;
+
