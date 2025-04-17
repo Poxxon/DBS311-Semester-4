@@ -48,3 +48,16 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('--Countdown done EXIT WHEN--');
     END;
 END;
+
+-- FOR LOOP
+BEGIN
+    FOR i IN 1..4 LOOP
+        IF i < 2 THEN
+            DBMS_OUTPUT.PUT_LINE(i || ' is less than 2');
+        ELSIF i > 2 THEN
+            DBMS_OUTPUT.PUT_LINE(i || ' is more than 2');
+        ELSE 
+            DBMS_OUTPUT.PUT_LINE(i || ' is equal to 2');
+        END IF;
+    END LOOP;
+END;
