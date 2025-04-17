@@ -123,6 +123,7 @@ BEGIN
     RETURN max_price;
 END;
 
+-- Test it 
 BEGIN
    DECLARE
       highest_price NUMBER;
@@ -131,3 +132,17 @@ BEGIN
       DBMS_OUTPUT.PUT_LINE('The maximum price is: ' || highest_price);
    END;
 END;
+
+-- Test it IF ELSE
+BEGIN
+   DECLARE
+      new_price NUMBER := 9000;
+   BEGIN
+      IF new_price < find_max_price() THEN
+         DBMS_OUTPUT.PUT_LINE('The new price is less than the max price.');
+      ELSE
+         DBMS_OUTPUT.PUT_LINE('The new price is higher than the max price.');
+      END IF;
+   END;
+END;
+
