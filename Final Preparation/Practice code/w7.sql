@@ -61,3 +61,20 @@ BEGIN
         END IF;
     END LOOP;
 END;
+
+-- WHILE LOOP
+BEGIN
+   DECLARE
+      run   BOOLEAN := TRUE;
+      round NUMBER := 1;
+   BEGIN
+      DBMS_OUTPUT.PUT_LINE('-- First WHILE LOOP --');
+      WHILE run LOOP
+         DBMS_OUTPUT.PUT_LINE('round ' || round);
+         round := round + 1;
+         IF round = 4 THEN
+            run := FALSE;
+         END IF;
+      END LOOP;
+   END;
+END;
