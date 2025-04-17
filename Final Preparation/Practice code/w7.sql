@@ -78,3 +78,39 @@ BEGIN
       END LOOP;
    END;
 END;
+
+-- CURSOR with params
+BEGIN
+    DECLARE
+        p_product products%ROWTYPE;
+
+        CURSOR product_cursor(price_1 NUMBER, price_2 NUMBER) IS 
+            SELECT * FROM products
+            WHERE list_price BETWEEN price_1 AND price_2;
+    
+    BEGIN
+        OPEN product_cursor(1000, 2000);
+        LOOP 
+            FETCH product_cursor INTO p_product;
+            EXIT WHEN product_cursor%NOTFOUND;
+            DBMS_OUTPUT.PUT_LINE(p_product.product_name || ': ' || p_product.list_price);
+            DBMS_OUTPUT.PUT_LINE(product_cursor%ROWCOUNT);
+        END LOOP;
+        CLOSE product_cursor;
+    END;
+END;
+
+-- CURSOR in a FOR LOOP
+BEGIN
+   DECLARE
+      CURSOR emp_cursor IS
+         SELECT last_name, job_title
+         FROM employees
+         WHERE job_title LIKE 'A%t %'
+         ORDER BY last_name;
+   BEGIN
+      FOR emp_record IN emp_cursor LOOP
+         DBMS_OUTPUT.PUT_LINE('Name: ' || emp_record.last_name || ', Job: ' || emp_record.job_title);
+      END LOOP;
+   END;
+END;
