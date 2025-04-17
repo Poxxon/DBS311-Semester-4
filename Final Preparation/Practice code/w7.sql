@@ -146,3 +146,26 @@ BEGIN
    END;
 END;
 
+CREATE OR REPLACE PROCEDURE stringy(S IN VARCHAR2) AS
+newWord VARCHAR2(1000) := ''; 
+
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Original: ' || S);
+    DBMS_OUTPUT.PUT_LINE('Reverse: ');
+    
+    FOR i IN REVERSE 1..LENGTH(S) 
+    LOOP
+        DBMS_OUTPUT.PUT_LINE(SUBSTR(S, i, 1));
+    END LOOP; 
+EXCEPTION 
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('ERROR: ' || SQLERRM);
+END;
+/
+
+DECLARE 
+    string1 VARCHAR2(5) := 'hello'; 
+BEGIN
+    stringy(string1);
+END;
+/
