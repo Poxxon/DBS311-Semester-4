@@ -123,3 +123,11 @@ BEGIN
     RETURN max_price;
 END;
 
+BEGIN
+   DECLARE
+      highest_price NUMBER;
+   BEGIN
+      highest_price := find_max_price();
+      DBMS_OUTPUT.PUT_LINE('The maximum price is: ' || highest_price);
+   END;
+END;
