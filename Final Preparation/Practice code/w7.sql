@@ -33,3 +33,18 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE('--Countdown done--');
     END;
 END;
+
+-- EXIT WHEN
+BEGIN
+    DECLARE 
+        counter NUMBER := 3;
+    BEGIN
+        DBMS_OUTPUT.PUT_LINE('--Countdown started--');
+        LOOP
+            DBMS_OUTPUT.PUT_LINE('counter: ' || counter);
+            counter := counter - 1;
+            EXIT WHEN counter < 1;
+        END LOOP;
+        DBMS_OUTPUT.PUT_LINE('--Countdown done EXIT WHEN--');
+    END;
+END;
