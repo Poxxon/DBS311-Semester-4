@@ -17,3 +17,19 @@ BEGIN
     END;
 END;
 
+-- LOOP with EXIT
+BEGIN
+    DECLARE 
+        counter NUMBER := 3;
+    BEGIN
+        DBMS_OUTPUT.PUT_LINE('--Countdown started--');
+        LOOP
+            DBMS_OUTPUT.PUT_LINE('counter: ' || counter);
+            counter := counter -1;
+            IF counter < 1 THEN
+                EXIT;
+            END IF;
+        END LOOP;
+        DBMS_OUTPUT.PUT_LINE('--Countdown done--');
+    END;
+END;
